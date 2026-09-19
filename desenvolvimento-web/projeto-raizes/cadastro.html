@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Cadastre-se para participar ou contribuir com o Projeto Raízes."
+    >
+
+    <title>Participe | Projeto Raízes</title>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="container header-content">
+
+            <a href="index.html" class="site-logo">
+                Projeto Raízes
+            </a>
+
+            <!-- Navegação desktop -->
+            <nav
+                class="site-nav"
+                aria-label="Navegação principal"
+            >
+                <ul>
+
+                    <li>
+                        <a href="index.html">
+                            Início
+                        </a>
+                    </li>
+
+                    <li class="has-submenu">
+
+                        <a
+                            href="projetos.html"
+                            class="submenu-trigger"
+                        >
+                            <span>Projetos</span>
+
+                            <svg
+                                class="submenu-arrow"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 256 256"
+                                aria-hidden="true"
+                            >
+                                <path
+                                    d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"
+                                ></path>
+                            </svg>
+                        </a>
+
+                        <ul
+                            class="submenu"
+                            aria-label="Projetos do Projeto Raízes"
+                        >
+                            <li>
+                                <a href="projetos.html#horta-no-bairro">
+                                    Horta no Bairro
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="projetos.html#raizes-na-escola">
+                                    Raízes na Escola
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="projetos.html#colheita-solidaria">
+                                    Colheita Solidária
+                                </a>
+                            </li>
+                        </ul>
+
+                    </li>
+
+                    <li>
+                        <a
+                            href="cadastro.html"
+                            aria-current="page"
+                        >
+                            Participe
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+
+
+            <!-- Navegação mobile -->
+            <details class="mobile-nav">
+
+                <summary>
+                    <span
+                        class="hamburger"
+                        aria-hidden="true"
+                    >
+                        ☰
+                    </span>
+
+                    <span>Menu</span>
+                </summary>
+
+                <nav aria-label="Navegação mobile">
+
+                    <ul>
+
+                        <li>
+                            <a href="index.html">
+                                Início
+                            </a>
+                        </li>
+
+                        <li>
+
+                            <details class="mobile-submenu">
+
+                                <summary>
+                                    Projetos
+                                </summary>
+
+                                <ul>
+
+                                    <li>
+                                        <a href="projetos.html">
+                                            Todos os projetos
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="projetos.html#horta-no-bairro">
+                                            Horta no Bairro
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="projetos.html#raizes-na-escola">
+                                            Raízes na Escola
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="projetos.html#colheita-solidaria">
+                                            Colheita Solidária
+                                        </a>
+                                    </li>
+
+                                </ul>
+
+                            </details>
+
+                        </li>
+
+                        <li>
+                            <a
+                                href="cadastro.html"
+                                aria-current="page"
+                            >
+                                Participe
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </nav>
+
+            </details>
+
+        </div>
+    </header>
+
+
+    <main>
+
+        <section class="section">
+
+            <div class="container form-container">
+
+                <header class="section-header">
+
+                    <h1>Faça parte do Projeto Raízes</h1>
+
+                    <p>
+                        Preencha seus dados para participar como
+                        voluntário ou apoiar nossos projetos.
+                    </p>
+
+                </header>
+
+
+                <!-- Alerta informativo -->
+                <div
+                    class="alert alert-info"
+                    role="status"
+                >
+                    <strong>Antes de enviar:</strong>
+                    confira se seus dados de contato estão corretos.
+                </div>
+
+
+                <form action="#" method="post">
+
+                    <!-- Dados pessoais -->
+                    <fieldset>
+
+                        <legend>
+                            Dados pessoais
+                        </legend>
+
+                        <div class="form-grid">
+
+                            <div class="form-group form-group-full">
+
+                                <label for="nome">
+                                    Nome completo
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="nome"
+                                    name="nome"
+                                    placeholder="Seu nome completo"
+                                    minlength="3"
+                                    maxlength="100"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="email">
+                                    E-mail
+                                </label>
+
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    placeholder="nome@exemplo.com"
+                                    maxlength="100"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="nascimento">
+                                    Data de nascimento
+                                </label>
+
+                                <input
+                                    type="date"
+                                    id="nascimento"
+                                    name="nascimento"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="cpf">
+                                    CPF
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="cpf"
+                                    name="cpf"
+                                    placeholder="000.000.000-00"
+                                    maxlength="14"
+                                    inputmode="numeric"
+                                    pattern="[0-9]{3}\.[0-9]{3}\.[0-9]{3}-[0-9]{2}"
+                                    title="Digite o CPF no formato 000.000.000-00"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="telefone">
+                                    Telefone
+                                </label>
+
+                                <input
+                                    type="tel"
+                                    id="telefone"
+                                    name="telefone"
+                                    placeholder="(00) 00000-0000"
+                                    maxlength="15"
+                                    pattern="\([0-9]{2}\) [0-9]{5}-[0-9]{4}"
+                                    title="Digite o telefone no formato (00) 00000-0000"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </fieldset>
+
+
+                    <!-- Endereço -->
+                    <fieldset>
+
+                        <legend>
+                            Endereço
+                        </legend>
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+
+                                <label for="cep">
+                                    CEP
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="cep"
+                                    name="cep"
+                                    placeholder="00000-000"
+                                    maxlength="9"
+                                    inputmode="numeric"
+                                    pattern="[0-9]{5}-[0-9]{3}"
+                                    title="Digite o CEP no formato 00000-000"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="estado">
+                                    Estado
+                                </label>
+
+                                <select
+                                    id="estado"
+                                    name="estado"
+                                    required
+                                >
+                                    <option value="">
+                                        Selecione
+                                    </option>
+
+                                    <option value="PR">
+                                        Paraná
+                                    </option>
+
+                                    <option value="SC">
+                                        Santa Catarina
+                                    </option>
+
+                                    <option value="SP">
+                                        São Paulo
+                                    </option>
+
+                                    <option value="RS">
+                                        Rio Grande do Sul
+                                    </option>
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="cidade">
+                                    Cidade
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="cidade"
+                                    name="cidade"
+                                    placeholder="Sua cidade"
+                                    minlength="2"
+                                    maxlength="100"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="endereco">
+                                    Endereço
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="endereco"
+                                    name="endereco"
+                                    placeholder="Rua, número e bairro"
+                                    maxlength="150"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </fieldset>
+
+
+                    <!-- Forma de participação -->
+                    <fieldset>
+
+                        <legend>
+                            Como deseja participar?
+                        </legend>
+
+                        <div class="radio-group">
+
+                            <div class="radio-option">
+
+                                <input
+                                    type="radio"
+                                    id="voluntario"
+                                    name="participacao"
+                                    value="voluntario"
+                                    required
+                                >
+
+                                <label for="voluntario">
+                                    Quero ser voluntário
+                                </label>
+
+                            </div>
+
+
+                            <div class="radio-option">
+
+                                <input
+                                    type="radio"
+                                    id="doador"
+                                    name="participacao"
+                                    value="doador"
+                                >
+
+                                <label for="doador">
+                                    Quero fazer uma doação
+                                </label>
+
+                            </div>
+
+
+                            <div class="radio-option">
+
+                                <input
+                                    type="radio"
+                                    id="mutirao"
+                                    name="participacao"
+                                    value="mutirao"
+                                >
+
+                                <label for="mutirao">
+                                    Quero participar dos mutirões
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                    </fieldset>
+
+
+                    <!-- Informações adicionais -->
+                    <fieldset>
+
+                        <legend>
+                            Informações adicionais
+                        </legend>
+
+                        <div class="form-group">
+
+                            <label for="mensagem">
+                                Conte um pouco sobre como gostaria de ajudar
+                            </label>
+
+                            <textarea
+                                id="mensagem"
+                                name="mensagem"
+                                rows="5"
+                                maxlength="500"
+                                placeholder="Escreva sua mensagem"
+                            ></textarea>
+
+                        </div>
+
+                    </fieldset>
+
+
+                    <div>
+
+                        <button
+                            type="submit"
+                            class="button"
+                        >
+                            Enviar cadastro
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+
+            <!--
+                Toast mantido visível para demonstrar
+                o componente na captura da atividade.
+            -->
+            <div
+                class="toast toast-success"
+                role="status"
+                aria-live="polite"
+            >
+                <strong>Cadastro enviado!</strong>
+
+                <span>
+                    Recebemos seus dados com sucesso.
+                </span>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer class="site-footer">
+
+        <div class="container footer-content">
+
+            <p>
+                &copy; 2026 Projeto Raízes
+            </p>
+
+            <p>
+                Sustentabilidade e comunidade.
+            </p>
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>
