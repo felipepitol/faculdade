@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Projeto Raízes: hortas comunitárias, educação ambiental e sustentabilidade.">
+
+    <title>Projeto Raízes</title>
+
+    <link rel="stylesheet" href="../css/tokens.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script type="module" src="../js/main.js"></script>
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="container header-content">
+
+            <a href="#/" class="site-logo">
+                Projeto Raízes
+            </a>
+
+            <!-- Navegação desktop -->
+            <nav class="site-nav" aria-label="Navegação principal">
+                <ul>
+                    <li>
+                        <a href="#/">
+                            Início
+                        </a>
+                    </li>
+
+                    <li class="has-submenu">
+                        <a href="#/projetos" class="submenu-trigger">
+                            <span>Projetos</span>
+
+                            <svg class="submenu-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                viewBox="0 0 256 256" aria-hidden="true">
+                                <path
+                                    d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z">
+                                </path>
+                            </svg>
+                        </a>
+
+                        <ul class="submenu" aria-label="Projetos do Projeto Raízes">
+                            <li>
+                                <a href="#/projetos/horta-no-bairro">
+                                    Horta no Bairro
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#/projetos/raizes-na-escola">
+                                    Raízes na Escola
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#/projetos/colheita-solidaria">
+                                    Colheita Solidária
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#/cadastro">
+                            Participe
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+
+            <!-- Navegação mobile -->
+            <details class="mobile-nav">
+
+                <summary>
+                    <span class="hamburger" aria-hidden="true">
+                        ☰
+                    </span>
+
+                    <span>Menu</span>
+                </summary>
+
+                <nav aria-label="Navegação mobile">
+
+                    <ul>
+                        <li>
+                            <a href="#/">
+                                Início
+                            </a>
+                        </li>
+
+                        <li>
+
+                            <details class="mobile-submenu">
+
+                                <summary>
+                                    Projetos
+                                </summary>
+
+                                <ul>
+                                    <li>
+                                        <a href="#/projetos">
+                                            Todos os projetos
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#/projetos/horta-no-bairro">
+                                            Horta no Bairro
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#/projetos/raizes-na-escola">
+                                            Raízes na Escola
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#/projetos/colheita-solidaria">
+                                            Colheita Solidária
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            </details>
+
+                        </li>
+
+                        <li>
+                            <a href="#/cadastro">
+                                Participe
+                            </a>
+                        </li>
+                    </ul>
+
+                </nav>
+
+            </details>
+
+        </div>
+    </header>
+
+
+    <main id="app" tabindex="-1">
+
+        <!-- Conteúdo inicial: é substituído pelo JavaScript ao carregar -->
+        <section class="section">
+            <div class="container">
+                <div class="alert alert-info" role="status">
+                    <strong>Carregando o Projeto Raízes…</strong>
+                    Se esta mensagem não sumir, abra o projeto por um servidor
+                    local (por exemplo, a extensão Live Server ou
+                    <code>python3 -m http.server</code>): módulos JavaScript
+                    não carregam direto de <code>file://</code>.
+                </div>
+            </div>
+        </section>
+
+        <noscript>
+            <section class="section">
+                <div class="container">
+                    <div class="alert alert-error">
+                        Este site precisa de JavaScript para funcionar.
+                    </div>
+                </div>
+            </section>
+        </noscript>
+
+    </main>
+
+    <!-- Região dos toasts de feedback -->
+    <div id="toast-region" role="status" aria-live="polite"></div>
+
+
+    <footer class="site-footer">
+
+        <div class="container footer-content">
+
+            <p>
+                &copy; 2026 Projeto Raízes
+            </p>
+
+            <p>
+                Sustentabilidade e comunidade.
+            </p>
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>

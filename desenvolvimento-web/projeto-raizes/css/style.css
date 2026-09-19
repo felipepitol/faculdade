@@ -1,139 +1,4 @@
 /* ========================================
-   DESIGN SYSTEM
-======================================== */
-
-:root {
-  /*
-     CATÁLOGO DE TOKENS
-
-     Os tokens estão em duas camadas:
-     1. Primitivos: valores brutos (paleta e escala de tamanhos).
-     2. Semânticos: papéis de uso, que apontam para os primitivos.
-
-     Nos componentes, use sempre os tokens semânticos.
-  */
-
-  /* ---------- Primitivos: paleta ---------- */
-  --green-700: #214f2b;
-  --green-600: #2f6b3b;
-  --yellow-500: #d9a441;
-  --white: #ffffff;
-
-  /* ---------- Primitivos: escala tipográfica ---------- */
-  --font-size-xs: 0.875rem;
-  --font-size-sm: 1rem;
-  --font-size-md: 1.125rem;
-  --font-size-lg: 1.5rem;
-  --font-size-xl: 2rem;
-  --font-size-xxl: 3rem;
-
-  /* ---------- Cores: marca ---------- */
-  --color-primary: var(--green-600);       /* botões, links ativos, destaques */
-  --color-primary-dark: var(--green-700);  /* hover de botões, títulos, rodapé */
-  --color-secondary: var(--yellow-500);    /* cor de apoio */
-
-  /* ---------- Cores: superfícies e texto ---------- */
-  --color-background: #f5f7f2;             /* fundo da página */
-  --color-surface: var(--white);           /* cards, header, campos, toast */
-  --color-text: #253025;                   /* texto principal */
-  --color-text-muted: #667066;             /* texto de apoio */
-  --color-on-primary: var(--white);        /* texto sobre fundo primário */
-
-  /* ---------- Cores: bordas e foco ---------- */
-  --color-border: #dce3da;                 /* divisórias e contorno de cards */
-  --color-border-input: #aeb9ad;           /* contorno de campos em repouso */
-  --color-focus-ring: var(--color-secondary);    /* outline de foco via teclado */
-  --color-focus-glow: rgba(47, 107, 59, 0.2);    /* halo de campo em foco */
-
-  /* ---------- Cores: feedback ---------- */
-  --color-success: var(--color-primary);   /* campo válido, toast de sucesso */
-  --color-success-text: #1f5c2c;
-  --color-success-bg: #e4f3e7;
-  --color-success-border: #86b890;
-
-  --color-error: #a33333;                  /* campo inválido */
-  --color-error-text: #842929;
-  --color-error-bg: #faeaea;
-  --color-error-border: #d8a0a0;
-
-  --color-warning-text: #76520b;
-  --color-warning-bg: #fff2d6;
-
-  --color-info-text: var(--color-primary-dark);
-  --color-info-bg: #edf6ef;
-  --color-info-border: #9ab9a0;
-
-  /* ---------- Tipografia: níveis ---------- */
-  --font-family: Arial, Helvetica, sans-serif;
-
-  --font-display: clamp(2rem, 5vw, var(--font-size-xxl)); /* título do hero */
-  --font-title: var(--font-size-xl);       /* título de página e de seção */
-  --font-heading: var(--font-size-lg);     /* título de card, bloco e logo */
-  --font-lead: var(--font-size-md);        /* texto de destaque e legendas */
-  --font-body: var(--font-size-sm);        /* texto corrido */
-  --font-small: var(--font-size-xs);       /* badges e textos auxiliares */
-
-  --font-weight-regular: 400;
-  --font-weight-semibold: 600;
-  --font-weight-bold: 700;
-
-  --line-height-body: 1.6;
-  --line-height-heading: 1.1;
-
-  /* ---------- Espaçamentos ---------- */
-  --space-1: 0.5rem;
-  --space-2: 1rem;
-  --space-3: 1.5rem;
-  --space-4: 2rem;
-  --space-5: 3rem;
-  --space-6: 4rem;
-
-  /* ---------- Outros ---------- */
-  --border-radius: 0.75rem;
-  --container-width: 1200px;
-  --transition: 0.2s ease;
-  --shadow-overlay: 0 10px 30px rgba(0, 0, 0, 0.15); /* elementos flutuantes */
-}
-
-/* ========================================
-   RESET
-======================================== */
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: var(--font-family);
-  font-size: var(--font-body);
-  line-height: var(--line-height-body);
-
-  color: var(--color-text);
-  background-color: var(--color-background);
-}
-
-img {
-  display: block;
-
-  width: 100%;
-  height: auto;
-}
-
-a {
-  color: inherit;
-}
-
-ul {
-  padding-left: 1.25rem;
-}
-
-/* ========================================
    LAYOUT
 ======================================== */
 
@@ -1083,19 +948,115 @@ textarea:focus {
   border-color: var(--color-primary);
 }
 
-/* Campo inválido após preenchimento */
-input:invalid:not(:placeholder-shown) {
+/* Estados definidos pela validação em JavaScript (js/modules/form.js) */
+
+/* Mesmo peso do input:focus, para o erro continuar visível com foco */
+
+input[aria-invalid="true"],
+select[aria-invalid="true"] {
   border-color: var(--color-error);
 }
 
-/* Campo válido após preenchimento */
-input:not([type="date"]):valid:not(:placeholder-shown) {
+.is-valid {
   border-color: var(--color-success);
 }
 
-/* Mantém campos obrigatórios vazios sem erro visual inicial */
-input:required:placeholder-shown {
-  border-color: var(--color-border-input);
+/* Mensagem de erro logo abaixo do campo */
+
+.field-error {
+  color: var(--color-error-text);
+
+  font-size: var(--font-small);
+  font-weight: var(--font-weight-semibold);
+}
+
+.radio-group + .field-error {
+  margin-top: var(--space-1);
+}
+
+.field-hint,
+.label-optional {
+  color: var(--color-text-muted);
+
+  font-size: var(--font-small);
+  font-weight: var(--font-weight-regular);
+}
+
+/* Botão com aparência de link, para ações secundárias */
+
+.link-button {
+  padding: 0;
+
+  border: 0;
+
+  background: none;
+  color: inherit;
+
+  font: inherit;
+  font-weight: var(--font-weight-semibold);
+  text-decoration: underline;
+
+  cursor: pointer;
+}
+
+.draft-notice {
+  display: flex;
+
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: var(--space-1) var(--space-3);
+}
+
+
+/* ========================================
+   CADASTROS SALVOS
+======================================== */
+
+.saved-section {
+  margin-top: var(--space-5);
+}
+
+.saved-section h2 {
+  margin-bottom: var(--space-2);
+
+  color: var(--color-primary-dark);
+
+  font-size: var(--font-heading);
+}
+
+.saved-list {
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--space-2);
+
+  padding: 0;
+
+  list-style: none;
+}
+
+.saved-item {
+  display: flex;
+
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: var(--space-1) var(--space-3);
+
+  padding: var(--space-2) var(--space-3);
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+
+  background-color: var(--color-surface);
+}
+
+.saved-item .badge {
+  margin-bottom: 0;
+  margin-left: var(--space-1);
 }
 
 
@@ -1204,4 +1165,57 @@ input:required:placeholder-shown {
 
 .toast-success strong {
   color: var(--color-primary-dark);
+}
+
+.toast-error {
+  border-left: 5px solid var(--color-error);
+}
+
+.toast-error strong {
+  color: var(--color-error-text);
+}
+
+/* Espaço para o botão de fechar no canto do toast */
+
+.toast {
+  padding-right: var(--space-5);
+}
+
+.toast-close {
+  position: absolute;
+
+  top: var(--space-1);
+  right: var(--space-1);
+
+  width: 2rem;
+  height: 2rem;
+
+  border: 0;
+  border-radius: 50%;
+
+  background: none;
+  color: var(--color-text-muted);
+
+  font-size: var(--font-heading);
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.toast-close:hover,
+.toast-close:focus {
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+
+/* ========================================
+   SPA
+======================================== */
+
+/* O foco vai para o conteúdo a cada troca de view; não precisa de contorno */
+
+#app:focus,
+.project-card:focus {
+  outline: none;
 }

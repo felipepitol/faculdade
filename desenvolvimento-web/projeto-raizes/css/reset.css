@@ -1,0 +1,43 @@
+/* ========================================
+   RESET
+======================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-body);
+  line-height: var(--line-height-body);
+
+  color: var(--color-text);
+  background-color: var(--color-background);
+}
+
+img {
+  display: block;
+
+  width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+}
+
+ul {
+  padding-left: 1.25rem;
+}
+
+/* O atributo hidden vence qualquer display definido nos componentes */
+
+[hidden] {
+  display: none !important;
+}
