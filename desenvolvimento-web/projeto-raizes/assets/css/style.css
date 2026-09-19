@@ -3,19 +3,23 @@
 ======================================== */
 
 :root {
-  /* Cores */
-  --color-primary: #2f6b3b;
-  --color-primary-dark: #214f2b;
-  --color-secondary: #d9a441;
-  --color-background: #f5f7f2;
-  --color-surface: #ffffff;
-  --color-text: #253025;
-  --color-text-muted: #667066;
-  --color-border: #dce3da;
+  /*
+     CATÁLOGO DE TOKENS
 
-  /* Tipografia */
-  --font-family: Arial, Helvetica, sans-serif;
+     Os tokens estão em duas camadas:
+     1. Primitivos: valores brutos (paleta e escala de tamanhos).
+     2. Semânticos: papéis de uso, que apontam para os primitivos.
 
+     Nos componentes, use sempre os tokens semânticos.
+  */
+
+  /* ---------- Primitivos: paleta ---------- */
+  --green-700: #214f2b;
+  --green-600: #2f6b3b;
+  --yellow-500: #d9a441;
+  --white: #ffffff;
+
+  /* ---------- Primitivos: escala tipográfica ---------- */
   --font-size-xs: 0.875rem;
   --font-size-sm: 1rem;
   --font-size-md: 1.125rem;
@@ -23,7 +27,60 @@
   --font-size-xl: 2rem;
   --font-size-xxl: 3rem;
 
-  /* Espaçamentos */
+  /* ---------- Cores: marca ---------- */
+  --color-primary: var(--green-600);       /* botões, links ativos, destaques */
+  --color-primary-dark: var(--green-700);  /* hover de botões, títulos, rodapé */
+  --color-secondary: var(--yellow-500);    /* cor de apoio */
+
+  /* ---------- Cores: superfícies e texto ---------- */
+  --color-background: #f5f7f2;             /* fundo da página */
+  --color-surface: var(--white);           /* cards, header, campos, toast */
+  --color-text: #253025;                   /* texto principal */
+  --color-text-muted: #667066;             /* texto de apoio */
+  --color-on-primary: var(--white);        /* texto sobre fundo primário */
+
+  /* ---------- Cores: bordas e foco ---------- */
+  --color-border: #dce3da;                 /* divisórias e contorno de cards */
+  --color-border-input: #aeb9ad;           /* contorno de campos em repouso */
+  --color-focus-ring: var(--color-secondary);    /* outline de foco via teclado */
+  --color-focus-glow: rgba(47, 107, 59, 0.2);    /* halo de campo em foco */
+
+  /* ---------- Cores: feedback ---------- */
+  --color-success: var(--color-primary);   /* campo válido, toast de sucesso */
+  --color-success-text: #1f5c2c;
+  --color-success-bg: #e4f3e7;
+  --color-success-border: #86b890;
+
+  --color-error: #a33333;                  /* campo inválido */
+  --color-error-text: #842929;
+  --color-error-bg: #faeaea;
+  --color-error-border: #d8a0a0;
+
+  --color-warning-text: #76520b;
+  --color-warning-bg: #fff2d6;
+
+  --color-info-text: var(--color-primary-dark);
+  --color-info-bg: #edf6ef;
+  --color-info-border: #9ab9a0;
+
+  /* ---------- Tipografia: níveis ---------- */
+  --font-family: Arial, Helvetica, sans-serif;
+
+  --font-display: clamp(2rem, 5vw, var(--font-size-xxl)); /* título do hero */
+  --font-title: var(--font-size-xl);       /* título de página e de seção */
+  --font-heading: var(--font-size-lg);     /* título de card, bloco e logo */
+  --font-lead: var(--font-size-md);        /* texto de destaque e legendas */
+  --font-body: var(--font-size-sm);        /* texto corrido */
+  --font-small: var(--font-size-xs);       /* badges e textos auxiliares */
+
+  --font-weight-regular: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-body: 1.6;
+  --line-height-heading: 1.1;
+
+  /* ---------- Espaçamentos ---------- */
   --space-1: 0.5rem;
   --space-2: 1rem;
   --space-3: 1.5rem;
@@ -31,10 +88,11 @@
   --space-5: 3rem;
   --space-6: 4rem;
 
-  /* Outros */
+  /* ---------- Outros ---------- */
   --border-radius: 0.75rem;
   --container-width: 1200px;
   --transition: 0.2s ease;
+  --shadow-overlay: 0 10px 30px rgba(0, 0, 0, 0.15); /* elementos flutuantes */
 }
 
 /* ========================================
@@ -53,8 +111,8 @@ html {
 
 body {
   font-family: var(--font-family);
-  font-size: var(--font-size-sm);
-  line-height: 1.6;
+  font-size: var(--font-body);
+  line-height: var(--line-height-body);
 
   color: var(--color-text);
   background-color: var(--color-background);
@@ -143,8 +201,8 @@ ul {
 .site-logo {
   color: var(--color-primary);
 
-  font-size: var(--font-size-lg);
-  font-weight: 700;
+  font-size: var(--font-heading);
+  font-weight: var(--font-weight-bold);
 
   text-decoration: none;
 }
@@ -173,7 +231,7 @@ ul {
 
   padding: 0.75rem 0;
 
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   text-decoration: none;
 
   transition: color var(--transition);
@@ -334,7 +392,7 @@ ul {
 
   color: var(--color-primary);
 
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
 }
 
 .hamburger {
@@ -377,7 +435,7 @@ ul {
 
   padding: var(--space-2);
 
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   text-decoration: none;
 }
 
@@ -394,7 +452,7 @@ ul {
 .mobile-submenu summary {
   padding: var(--space-2);
 
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 .mobile-submenu summary:hover,
@@ -412,7 +470,7 @@ ul {
 .mobile-submenu a {
   padding: 0.7rem var(--space-2);
 
-  font-weight: 400;
+  font-weight: var(--font-weight-regular);
 }
 
 /* ========================================
@@ -440,9 +498,9 @@ ul {
 
   margin-bottom: var(--space-3);
 
-  font-size: clamp(2rem, 5vw, var(--font-size-xxl));
+  font-size: var(--font-display);
 
-  line-height: 1.1;
+  line-height: var(--line-height-heading);
 }
 
 .hero p {
@@ -452,7 +510,7 @@ ul {
 
   color: var(--color-text-muted);
 
-  font-size: var(--font-size-md);
+  font-size: var(--font-lead);
 }
 
 .hero-image img {
@@ -477,11 +535,11 @@ ul {
 }
 
 .section-header h1 {
-  font-size: var(--font-size-xl);
+  font-size: var(--font-title);
 }
 
 .section-header h2 {
-  font-size: var(--font-size-xl);
+  font-size: var(--font-title);
 }
 
 .section-header p {
@@ -506,9 +564,9 @@ ul {
   border-radius: 0.5rem;
 
   background-color: var(--color-primary);
-  color: #ffffff;
+  color: var(--color-on-primary);
 
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   text-decoration: none;
 
   cursor: pointer;
@@ -527,7 +585,7 @@ ul {
 .button-secondary:hover,
 .button-secondary:focus {
   background-color: var(--color-primary);
-  color: #ffffff;
+  color: var(--color-on-primary);
 }
 
 /* ========================================
@@ -560,7 +618,7 @@ ul {
 
   color: var(--color-primary-dark);
 
-  font-size: var(--font-size-lg);
+  font-size: var(--font-heading);
 }
 
 .card p {
@@ -579,11 +637,13 @@ ul {
   border-radius: var(--border-radius);
 
   background-color: var(--color-primary);
-  color: #ffffff;
+  color: var(--color-on-primary);
 }
 
 .highlight h2 {
   margin-bottom: var(--space-2);
+
+  font-size: var(--font-heading);
 }
 
 .highlight p {
@@ -591,16 +651,16 @@ ul {
 }
 
 .highlight .button {
-  border-color: #ffffff;
+  border-color: var(--color-surface);
 
-  background-color: #ffffff;
+  background-color: var(--color-surface);
   color: var(--color-primary);
 }
 
 .highlight .button:hover,
 .highlight .button:focus {
   background-color: transparent;
-  color: #ffffff;
+  color: var(--color-on-primary);
 }
 
 /* ========================================
@@ -622,6 +682,8 @@ ul {
   margin-bottom: var(--space-2);
 
   color: var(--color-primary-dark);
+
+  font-size: var(--font-heading);
 }
 
 .project-card h3 {
@@ -665,8 +727,8 @@ legend {
 
   color: var(--color-primary-dark);
 
-  font-size: var(--font-size-md);
-  font-weight: 700;
+  font-size: var(--font-lead);
+  font-weight: var(--font-weight-bold);
 }
 
 .form-grid {
@@ -690,7 +752,7 @@ legend {
 }
 
 label {
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 input,
@@ -700,10 +762,10 @@ textarea {
 
   padding: 0.8rem 1rem;
 
-  border: 1px solid #aeb9ad;
+  border: 1px solid var(--color-border-input);
   border-radius: 0.4rem;
 
-  background-color: #ffffff;
+  background-color: var(--color-surface);
   color: var(--color-text);
 
   font: inherit;
@@ -759,7 +821,7 @@ address {
   padding-block: var(--space-4);
 
   background-color: var(--color-primary-dark);
-  color: #ffffff;
+  color: var(--color-on-primary);
 }
 
 .footer-content {
@@ -794,12 +856,12 @@ address {
 ======================================== */
 
 @media (max-width: 1200px) {
-  .container {
-    width: min(100% - 2.5rem, 1100px);
+  :root {
+    --font-display: 2.5rem;
   }
 
-  .hero h1 {
-    font-size: 2.5rem;
+  .container {
+    width: min(100% - 2.5rem, 1100px);
   }
 
   .section {
@@ -852,6 +914,10 @@ address {
 ======================================== */
 
 @media (max-width: 768px) {
+  :root {
+    --font-display: 2.25rem;
+  }
+
   .container {
     width: min(100% - 2rem, 100%);
   }
@@ -906,12 +972,6 @@ address {
   .project-card {
     padding: var(--space-3);
   }
-
-  /* Hero */
-
-  .hero h1 {
-    font-size: 2.25rem;
-  }
 }
 
 /* ========================================
@@ -922,6 +982,8 @@ address {
 
 @media (max-width: 576px) {
   :root {
+    --font-display: var(--font-size-xl);
+
     --space-5: 2.5rem;
     --space-6: 3rem;
   }
@@ -938,12 +1000,8 @@ address {
     padding-block: var(--space-5);
   }
 
-  .hero h1 {
-    font-size: 2rem;
-  }
-
   .hero p {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-body);
   }
 
   .section {
@@ -981,7 +1039,7 @@ address {
 
 a:focus-visible,
 button:focus-visible {
-  outline: 3px solid var(--color-secondary);
+  outline: 3px solid var(--color-focus-ring);
   outline-offset: 3px;
 }
 
@@ -996,7 +1054,7 @@ button:focus-visible {
 }
 
 .button:focus-visible {
-  outline: 3px solid var(--color-secondary);
+  outline: 3px solid var(--color-focus-ring);
   outline-offset: 3px;
 }
 
@@ -1021,23 +1079,23 @@ button:focus-visible {
 input:focus,
 select:focus,
 textarea:focus {
-  outline: 3px solid rgba(47, 107, 59, 0.2);
+  outline: 3px solid var(--color-focus-glow);
   border-color: var(--color-primary);
 }
 
 /* Campo inválido após preenchimento */
 input:invalid:not(:placeholder-shown) {
-  border-color: #a33333;
+  border-color: var(--color-error);
 }
 
 /* Campo válido após preenchimento */
 input:not([type="date"]):valid:not(:placeholder-shown) {
-  border-color: var(--color-primary);
+  border-color: var(--color-success);
 }
 
 /* Mantém campos obrigatórios vazios sem erro visual inicial */
 input:required:placeholder-shown {
-  border-color: #aeb9ad;
+  border-color: var(--color-border-input);
 }
 
 
@@ -1058,23 +1116,23 @@ input:required:placeholder-shown {
 
   border-radius: 999px;
 
-  font-size: var(--font-size-xs);
-  font-weight: 700;
+  font-size: var(--font-small);
+  font-weight: var(--font-weight-bold);
 }
 
 .badge-active {
-  background-color: #e2f1e5;
-  color: var(--color-primary-dark);
+  background-color: var(--color-success-bg);
+  color: var(--color-info-text);
 }
 
 .badge-success {
-  background-color: #dff2e3;
-  color: #1f5c2c;
+  background-color: var(--color-success-bg);
+  color: var(--color-success-text);
 }
 
 .badge-warning {
-  background-color: #fff2d6;
-  color: #76520b;
+  background-color: var(--color-warning-bg);
+  color: var(--color-warning-text);
 }
 
 
@@ -1092,24 +1150,24 @@ input:required:placeholder-shown {
 }
 
 .alert-info {
-  border-color: #9ab9a0;
+  border-color: var(--color-info-border);
 
-  background-color: #edf6ef;
-  color: var(--color-primary-dark);
+  background-color: var(--color-info-bg);
+  color: var(--color-info-text);
 }
 
 .alert-success {
-  border-color: #86b890;
+  border-color: var(--color-success-border);
 
-  background-color: #e4f3e7;
-  color: #1f5c2c;
+  background-color: var(--color-success-bg);
+  color: var(--color-success-text);
 }
 
 .alert-error {
-  border-color: #d8a0a0;
+  border-color: var(--color-error-border);
 
-  background-color: #faeaea;
-  color: #842929;
+  background-color: var(--color-error-bg);
+  color: var(--color-error-text);
 }
 
 
@@ -1137,11 +1195,11 @@ input:required:placeholder-shown {
 
   background-color: var(--color-surface);
 
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-overlay);
 }
 
 .toast-success {
-  border-left: 5px solid var(--color-primary);
+  border-left: 5px solid var(--color-success);
 }
 
 .toast-success strong {
