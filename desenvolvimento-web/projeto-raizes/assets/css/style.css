@@ -519,12 +519,6 @@ ul {
     border-color var(--transition);
 }
 
-.button:hover,
-.button:focus {
-  background-color: var(--color-primary-dark);
-  border-color: var(--color-primary-dark);
-}
-
 .button-secondary {
   background-color: transparent;
   color: var(--color-primary);
@@ -717,18 +711,6 @@ textarea {
 
 textarea {
   resize: vertical;
-}
-
-input:focus,
-select:focus,
-textarea:focus {
-  outline: 3px solid rgba(47, 107, 59, 0.2);
-
-  border-color: var(--color-primary);
-}
-
-input:invalid:not(:placeholder-shown) {
-  border-color: #a33333;
 }
 
 .radio-group {
@@ -952,27 +934,6 @@ address {
     gap: var(--space-2);
   }
 
-  .site-nav {
-    width: 100%;
-  }
-
-  .site-nav ul {
-    flex-direction: column;
-    align-items: stretch;
-    gap: var(--space-1);
-  }
-
-  .site-nav li {
-    width: 100%;
-  }
-
-  .site-nav a {
-    display: block;
-    width: 100%;
-    padding: 0.6rem;
-    text-align: center;
-  }
-
   .hero {
     padding-block: var(--space-5);
   }
@@ -1185,42 +1146,4 @@ input:required:placeholder-shown {
 
 .toast-success strong {
   color: var(--color-primary-dark);
-}
-
-
-/* ========================================
-   MODAL
-======================================== */
-
-.modal-feedback {
-  width: min(90%, 500px);
-
-  padding: 0;
-
-  border: 0;
-  border-radius: var(--border-radius);
-
-  background-color: var(--color-surface);
-
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
-}
-
-.modal-feedback::backdrop {
-  background-color: rgba(0, 0, 0, 0.55);
-}
-
-.modal-content {
-  padding: var(--space-4);
-}
-
-.modal-content h2 {
-  margin-bottom: var(--space-2);
-
-  color: var(--color-primary-dark);
-}
-
-.modal-content p {
-  margin-bottom: var(--space-3);
-
-  color: var(--color-text-muted);
 }
