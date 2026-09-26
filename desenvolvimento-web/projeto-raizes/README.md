@@ -1,5 +1,7 @@
 # Projeto Raízes
 
+**Site publicado:** <https://felipepitol.github.io/faculdade/>
+
 Site de uma organização fictícia de hortas comunitárias, desenvolvido na disciplina de
 Desenvolvimento Front-end. Apresenta a organização e seus projetos e recebe inscrições de
 voluntários. É uma _Single Page Application_ em JavaScript puro, sem framework: a navegação
@@ -46,9 +48,8 @@ Confira com `git --version`, `node --version` e `python3 --version`.
    cd faculdade/desenvolvimento-web/projeto-raizes
    ```
 
-2. Instale as dependências. O projeto não tem dependências de runtime (o Day.js vem do CDN),
-   então o comando só valida o `package.json`; ele passa a instalar as ferramentas de build
-   quando elas forem adicionadas:
+2. Instale as dependências de desenvolvimento (ferramentas de build: esbuild,
+   html-minifier-terser e svgo). O site em si não tem dependências de runtime: o Day.js vem do CDN.
 
    ```bash
    npm install
@@ -82,6 +83,51 @@ sem depender do navegador. Saída esperada:
 ℹ pass 10
 ℹ fail 0
 ```
+
+## Build de produção
+
+```bash
+npm install          # instala esbuild, html-minifier-terser e svgo
+npm run build        # gera a pasta dist/
+npm run preview      # build + servidor em http://localhost:8081 servindo dist/
+```
+
+O script [`scripts/build.mjs`](scripts/build.mjs) gera `dist/` com a mesma estrutura de pastas
+(`html`, `css`, `js`, `imagens`), pronta para qualquer servidor estático:
+
+| Etapa | Ferramenta | O que faz |
+| ----- | ---------- | --------- |
+| CSS | esbuild | Junta `tokens.css`, `reset.css` e `style.css` num arquivo e minifica |
+| JS | esbuild | Empacota `main.js` e os módulos num bundle ES minificado; o Day.js continua vindo do CDN, sob demanda |
+| Cache | esbuild | Nomes com hash do conteúdo (`app-PS5ARUD4.css`): o arquivo pode ficar em cache por muito tempo, e um deploy novo sempre gera outro nome |
+| HTML | html-minifier-terser | Remove comentários e espaços e aponta os links para os arquivos gerados |
+| Imagens | SVGO | Otimiza os SVGs (metadados, espaços, precisão numérica) |
+
+Resultado do build atual:
+
+| Arquivo | Fonte | Minificado | Gzip |
+| ------- | ----: | ---------: | ---: |
+| CSS (3 arquivos → 1) | 28.3 KB | 17.2 KB | 3.7 KB |
+| JS (18 módulos → 1) | 41.5 KB | 24.1 KB | 7.8 KB |
+| HTML | 7.8 KB | 3.3 KB | 1.4 KB |
+| Imagens SVG | 2.3 KB | 1.9 KB | 1.3 KB |
+| **Total** | **79.8 KB** | **46.5 KB** | **14.2 KB** |
+
+Além de reduzir 82% do peso transferido (com gzip), o bundle troca 21 requisições de CSS e JS por 2.
+
+## Deploy
+
+O site está publicado no GitHub Pages: **<https://felipepitol.github.io/faculdade/>**
+
+A publicação é automática, pelo GitHub Actions:
+
+| Workflow | Quando roda | O que faz |
+| -------- | ----------- | --------- |
+| [`ci.yml`](../../.github/workflows/ci.yml) | Todo pull request para `develop` ou `master` | `npm ci`, `npm test` e `npm run build`; o PR só é mesclado com tudo passando |
+| [`deploy.yml`](../../.github/workflows/deploy.yml) | Todo push na `master` (release ou hotfix) | Testes, build e publicação da pasta `dist/` no GitHub Pages |
+
+Seguindo o GitFlow, só o que passa por uma `release/*` ou `hotfix/*` chega à `master` e, portanto,
+à produção. Para publicar de novo sem mudança de código, use "Run workflow" em Actions → Deploy.
 
 ## Acessibilidade
 
@@ -128,6 +174,8 @@ projeto-raizes/
 │       ├── contraste.js    modo alto contraste (botão, preferência salva)
 │       ├── datas.js        integração com o Day.js (tempo relativo)
 │       └── html.js         escape de HTML e utilitário de listas
+├── scripts/
+│   └── build.mjs           build de produção (gera dist/, fora do Git)
 └── tests/                  testes com o runner nativo do Node
 ```
 
