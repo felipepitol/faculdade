@@ -83,6 +83,23 @@ sem depender do navegador. Saída esperada:
 ℹ fail 0
 ```
 
+## Acessibilidade
+
+O projeto segue a WCAG 2.1 nível AA:
+
+- **Semântica:** landmarks `header`, `nav` (com `aria-label`), `main` e `footer`; formulário com
+  `label`, `fieldset`/`legend`, `required`, `aria-invalid` e `aria-describedby`
+- **Teclado:** link "Pular para o conteúdo principal", submenu com `aria-expanded` que fecha com Esc,
+  foco levado ao `<h1>` a cada troca de rota e contorno de foco em duas cores (anel + halo), visível
+  em qualquer fundo
+- **Contraste:** todo texto com pelo menos 4.5:1 (3:1 em texto grande) e bordas de campos e foco com
+  pelo menos 3:1
+- **Modo alto contraste:** botão "Alto contraste" no cabeçalho (`aria-pressed`), fundo preto, texto
+  branco, ações em amarelo e links sempre sublinhados. A escolha fica no `localStorage`
+  (`raizes:contraste`); sem escolha, segue a preferência do sistema (`prefers-contrast: more`).
+  O modo de cores forçadas do Windows (`forced-colors`) também é respeitado
+- **Movimento:** `prefers-reduced-motion` desliga transições e rolagem suave
+
 ## Estrutura
 
 ```
@@ -108,6 +125,7 @@ projeto-raizes/
 │       ├── cadastros.js    gravação e listagem dos cadastros enviados
 │       ├── storage.js      acesso ao localStorage com tratamento de falhas
 │       ├── toast.js        aviso de feedback
+│       ├── contraste.js    modo alto contraste (botão, preferência salva)
 │       ├── datas.js        integração com o Day.js (tempo relativo)
 │       └── html.js         escape de HTML e utilitário de listas
 └── tests/                  testes com o runner nativo do Node
@@ -136,6 +154,7 @@ Se o CDN não responder, a lista continua exibindo a data absoluta.
 | ------------------ | ------------------------------------------------------------------------- |
 | `raizes:rascunho`  | Campos preenchidos e ainda não enviados. O CPF fica de fora.              |
 | `raizes:cadastros` | Cadastros enviados. Do CPF só são guardados os três dígitos centrais.     |
+| `raizes:contraste` | Preferência de contraste: `"alto"` ou `"padrao"`.                         |
 
 ## Versões e contribuição
 
