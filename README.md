@@ -5,7 +5,7 @@ código e testes.
 
 | Projeto | Descrição | Pasta |
 | ------- | --------- | ----- |
-| Projeto Raízes | Site de uma organização fictícia de hortas comunitárias, em HTML, CSS e JavaScript puro (SPA) | [`desenvolvimento-web/projeto-raizes`](desenvolvimento-web/projeto-raizes) |
+| Projeto Raízes | Site de uma organização fictícia de hortas comunitárias, em HTML, CSS e JavaScript puro (SPA). [Ver online](https://felipepitol.github.io/faculdade/) | [`desenvolvimento-web/projeto-raizes`](desenvolvimento-web/projeto-raizes) |
 
 ## Fluxo de trabalho (GitFlow)
 
@@ -33,7 +33,10 @@ Passo a passo de uma mudança:
 2. Criar a branch a partir da `develop`: `git checkout -b feature/<nome> develop`.
 3. Commitar no padrão abaixo e enviar a branch.
 4. Abrir um **pull request** para a `develop` usando o template (resumo, `Closes #<issue>`, como testar, checklist).
-5. Mesclar com merge commit (`--no-ff`), para o histórico mostrar o bloco de commits de cada funcionalidade.
+5. Esperar o CI (testes e build) passar e mesclar com merge commit (`--no-ff`), para o histórico mostrar o
+   bloco de commits de cada funcionalidade.
+6. Para lançar, abrir `release/<versão>` a partir da `develop` e mesclar na `master`: o push na `master`
+   dispara o deploy no GitHub Pages.
 
 ## Padrão de commits
 
@@ -69,4 +72,4 @@ Enquanto a versão é `0.x`, o projeto ainda está em evolução. Cada versão t
 | v0.1.0 | Site estático: páginas inicial, projetos e cadastro, grid de 12 colunas, menu responsivo |
 | v0.1.1 | Limpeza do CSS e design system em tokens semânticos |
 | v0.2.0 | SPA com JavaScript modular, validação, `localStorage` e testes |
-| v1.0.0 | *Em andamento* — acessibilidade WCAG 2.1 AA, build e deploy ([milestone](https://github.com/felipepitol/faculdade/milestone/1)) |
+| v1.0.0 | GitFlow e documentação, acessibilidade WCAG 2.1 AA com alto contraste, build de produção e deploy ([milestone](https://github.com/felipepitol/faculdade/milestone/1)) |

@@ -1,5 +1,7 @@
 # Projeto Raízes
 
+**Site publicado:** <https://felipepitol.github.io/faculdade/>
+
 Site de uma organização fictícia de hortas comunitárias, desenvolvido na disciplina de
 Desenvolvimento Front-end. Apresenta a organização e seus projetos e recebe inscrições de
 voluntários. É uma _Single Page Application_ em JavaScript puro, sem framework: a navegação
@@ -112,6 +114,20 @@ Resultado do build atual:
 | **Total** | **79.8 KB** | **46.5 KB** | **14.2 KB** |
 
 Além de reduzir 82% do peso transferido (com gzip), o bundle troca 21 requisições de CSS e JS por 2.
+
+## Deploy
+
+O site está publicado no GitHub Pages: **<https://felipepitol.github.io/faculdade/>**
+
+A publicação é automática, pelo GitHub Actions:
+
+| Workflow | Quando roda | O que faz |
+| -------- | ----------- | --------- |
+| [`ci.yml`](../../.github/workflows/ci.yml) | Todo pull request para `develop` ou `master` | `npm ci`, `npm test` e `npm run build`; o PR só é mesclado com tudo passando |
+| [`deploy.yml`](../../.github/workflows/deploy.yml) | Todo push na `master` (release ou hotfix) | Testes, build e publicação da pasta `dist/` no GitHub Pages |
+
+Seguindo o GitFlow, só o que passa por uma `release/*` ou `hotfix/*` chega à `master` e, portanto,
+à produção. Para publicar de novo sem mudança de código, use "Run workflow" em Actions → Deploy.
 
 ## Acessibilidade
 
