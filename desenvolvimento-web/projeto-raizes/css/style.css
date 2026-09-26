@@ -76,6 +76,12 @@
    MENU DESKTOP
 ======================================== */
 
+/* Menu e botão de contraste ficam juntos à direita do logo */
+
+.site-nav {
+  margin-left: auto;
+}
+
 .site-nav > ul {
   display: flex;
   align-items: center;
@@ -117,16 +123,36 @@
 
 .has-submenu {
   position: relative;
-}
 
-/* Link principal que abre o submenu */
-
-.submenu-trigger {
-  display: flex !important;
-
+  display: flex;
   align-items: center;
 
-  gap: 0.35rem;
+  gap: 0.15rem;
+}
+
+/* Botão que abre o submenu pelo teclado (aria-expanded) */
+
+.submenu-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 1.75rem;
+  height: 1.75rem;
+
+  padding: 0;
+
+  border: 0;
+  border-radius: 0.35rem;
+
+  background: none;
+  color: inherit;
+
+  cursor: pointer;
+}
+
+.submenu-toggle:hover {
+  color: var(--color-primary);
 }
 
 /* Seta do submenu */
@@ -144,8 +170,8 @@
 
 /* Rotação da seta quando o submenu está aberto */
 
-.has-submenu:hover .submenu-arrow,
-.has-submenu:focus-within .submenu-arrow {
+.has-submenu:not(.is-dismissed):hover .submenu-arrow,
+.submenu-toggle[aria-expanded="true"] .submenu-arrow {
   transform: rotate(180deg);
 }
 
@@ -212,8 +238,8 @@
 
 /* Exibe e mantém o submenu aberto */
 
-.has-submenu:hover .submenu,
-.has-submenu:focus-within .submenu {
+.has-submenu:not(.is-dismissed):hover .submenu,
+.submenu-toggle[aria-expanded="true"] + .submenu {
   opacity: 1;
   visibility: visible;
 
@@ -770,6 +796,10 @@ address {
   .site-nav ul {
     justify-content: center;
   }
+
+  .site-nav {
+    margin-left: 0;
+  }
 }
 
 /* ========================================
@@ -795,6 +825,10 @@ address {
 
   .mobile-nav {
     display: block;
+  }
+
+  .contrast-toggle {
+    margin-left: auto;
   }
 
   .header-content {
@@ -846,6 +880,20 @@ address {
 ======================================== */
 
 @media (max-width: 576px) {
+  /* Só o ícone no botão de contraste; o texto continua para leitores de tela */
+
+  .contrast-toggle span {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    overflow: hidden;
+    clip-path: inset(50%);
+
+    white-space: nowrap;
+  }
+
   :root {
     --font-display: var(--font-size-xl);
 
@@ -902,10 +950,73 @@ address {
    ACESSIBILIDADE
 ======================================== */
 
+/*
+   Foco em duas cores (anel + halo): visível sobre fundo claro, verde
+   ou preto (alto contraste). O box-shadow preenche o espaço do offset.
+*/
+
 a:focus-visible,
-button:focus-visible {
+button:focus-visible,
+summary:focus-visible {
   outline: 3px solid var(--color-focus-ring);
-  outline-offset: 3px;
+  outline-offset: 2px;
+
+  box-shadow: 0 0 0 2px var(--color-focus-halo);
+}
+
+/* Esconde da tela, mas mantém para leitores de tela */
+
+.visually-hidden {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  overflow: hidden;
+  clip-path: inset(50%);
+
+  white-space: nowrap;
+}
+
+/* Link de pular conteúdo: aparece só quando recebe foco pelo teclado */
+
+.skip-link {
+  position: absolute;
+  top: var(--space-1);
+  left: var(--space-1);
+
+  z-index: 1000;
+
+  padding: 0.75rem 1rem;
+
+  border-radius: 0.5rem;
+
+  background-color: var(--color-primary-dark);
+  color: var(--color-on-primary);
+
+  font-weight: var(--font-weight-semibold);
+
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* Quem pede menos movimento no sistema não recebe animações nem rolagem suave */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
 
 /* ========================================
@@ -920,7 +1031,9 @@ button:focus-visible {
 
 .button:focus-visible {
   outline: 3px solid var(--color-focus-ring);
-  outline-offset: 3px;
+  outline-offset: 2px;
+
+  box-shadow: 0 0 0 2px var(--color-focus-halo);
 }
 
 .button:active {
@@ -944,7 +1057,8 @@ button:focus-visible {
 input:focus,
 select:focus,
 textarea:focus {
-  outline: 3px solid var(--color-focus-glow);
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 1px;
   border-color: var(--color-primary);
 }
 
@@ -997,6 +1111,21 @@ select[aria-invalid="true"] {
   text-decoration: underline;
 
   cursor: pointer;
+}
+
+/* Lista do resumo de erros: cada item leva ao campo */
+
+.error-summary-list {
+  margin-top: 0.5rem;
+  padding-left: 1.25rem;
+}
+
+.error-summary-list li + li {
+  margin-top: 0.25rem;
+}
+
+.error-summary-list .link-button {
+  text-align: left;
 }
 
 .draft-notice {
@@ -1210,12 +1339,96 @@ select[aria-invalid="true"] {
 
 
 /* ========================================
+   ALTO CONTRASTE
+======================================== */
+
+/* Botão do cabeçalho: aria-pressed diz se o modo está ligado */
+
+.contrast-toggle {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 0.4rem;
+
+  min-height: 44px;
+
+  padding: 0.4rem 0.75rem;
+
+  border: 2px solid var(--color-primary);
+  border-radius: 0.5rem;
+
+  background: none;
+  color: var(--color-primary);
+
+  font: inherit;
+  font-size: var(--font-small);
+  font-weight: var(--font-weight-semibold);
+
+  cursor: pointer;
+}
+
+.contrast-toggle svg {
+  width: 1.1rem;
+  height: 1.1rem;
+
+  fill: currentColor;
+}
+
+.contrast-toggle[aria-pressed="true"] {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+/* No alto contraste, links sempre sublinhados: não dependem só da cor (1.4.1) */
+
+[data-contraste="alto"] a:not(.button, .skip-link, .site-logo) {
+  text-decoration: underline;
+}
+
+/* As ilustrações SVG têm cores próprias: um contorno as separa do fundo preto */
+
+[data-contraste="alto"] img {
+  outline: 2px solid var(--color-border);
+}
+
+[data-contraste="alto"] .card,
+[data-contraste="alto"] .project-card,
+[data-contraste="alto"] .highlight {
+  border: 2px solid var(--color-border);
+}
+
+/*
+   Modo de cores forçadas do sistema (ex.: Alto Contraste do Windows):
+   o navegador troca as cores, então só garantimos bordas e foco visíveis.
+*/
+
+@media (forced-colors: active) {
+  .button,
+  .badge,
+  .toast,
+  .alert,
+  .card,
+  .submenu {
+    border: 1px solid CanvasText;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  summary:focus-visible,
+  .button:focus-visible {
+    outline-color: Highlight;
+  }
+}
+
+/* ========================================
    SPA
 ======================================== */
 
 /* O foco vai para o conteúdo a cada troca de view; não precisa de contorno */
 
 #app:focus,
-.project-card:focus {
+#app h1:focus,
+.project-card:focus,
+.saved-section h2:focus {
   outline: none;
 }

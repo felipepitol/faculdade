@@ -29,7 +29,19 @@ export function mostrarToast({ titulo, mensagem, tipo = "success" }) {
   toast.append(forte, texto, fechar);
 
   const remover = () => toast.remove();
-  const temporizador = setTimeout(remover, DURACAO);
+  let temporizador = setTimeout(remover, DURACAO);
+
+  /* Pausa o fechamento automático enquanto a pessoa lê ou interage (WCAG 2.2.1) */
+  const pausar = () => clearTimeout(temporizador);
+  const retomar = () => {
+    clearTimeout(temporizador);
+    temporizador = setTimeout(remover, DURACAO);
+  };
+
+  toast.addEventListener("mouseenter", pausar);
+  toast.addEventListener("focusin", pausar);
+  toast.addEventListener("mouseleave", retomar);
+  toast.addEventListener("focusout", retomar);
 
   fechar.addEventListener("click", () => {
     clearTimeout(temporizador);

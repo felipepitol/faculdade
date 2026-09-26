@@ -6,6 +6,7 @@ import { participacoes } from "../data/formulario.js";
 import { listaCadastrosTemplate } from "../templates/cadastro.js";
 import { aplicarTempoRelativo } from "./datas.js";
 import { CHAVES, ler, salvar } from "./storage.js";
+import { mostrarToast } from "./toast.js";
 import { apenasDigitos } from "./validators.js";
 
 const ROTULOS_PARTICIPACAO = Object.fromEntries(participacoes);
@@ -72,6 +73,10 @@ export function iniciarListaCadastros(raiz) {
 
     removerCadastro(botao.dataset.remover);
     atualizar();
+
+    /* O botão clicado sumiu da tela: o foco volta para o título da lista */
+    raiz.querySelector("#titulo-cadastros")?.focus();
+    mostrarToast({ titulo: "Cadastro removido", mensagem: "A lista foi atualizada." });
   });
 
   atualizar();

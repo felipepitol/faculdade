@@ -14,7 +14,7 @@ function campo({ id, rotulo, atributos = "", classe = "", opcional = false }) {
         ${opcional ? '<span class="label-optional">(opcional)</span>' : ""}
       </label>
 
-      <input id="${id}" name="${id}" aria-describedby="erro-${id}" ${atributos}>
+      <input id="${id}" name="${id}" aria-describedby="erro-${id}" ${opcional ? "" : "required"} ${atributos}>
 
       <p class="field-error" id="erro-${id}" hidden></p>
     </div>
@@ -24,7 +24,7 @@ function campo({ id, rotulo, atributos = "", classe = "", opcional = false }) {
 function opcaoParticipacao([valor, rotulo]) {
   return `
     <div class="radio-option">
-      <input type="radio" id="${valor}" name="participacao" value="${valor}">
+      <input type="radio" id="${valor}" name="participacao" value="${valor}" required>
       <label for="${valor}">${rotulo}</label>
     </div>
   `;
@@ -56,9 +56,17 @@ export function cadastroTemplate() {
           </button>
         </div>
 
-        <div class="alert alert-error" id="resumo-erros" role="alert" tabindex="-1" hidden></div>
+        <div class="alert alert-error" id="resumo-erros" role="alert" hidden>
+          <strong id="resumo-erros-titulo"></strong>
 
-        <form id="form-cadastro" action="#" method="post" novalidate>
+          <ul class="error-summary-list" aria-labelledby="resumo-erros-titulo"></ul>
+        </div>
+
+        <form id="form-cadastro" action="#" method="post" novalidate aria-describedby="instrucoes-form">
+          <p class="field-hint" id="instrucoes-form">
+            Todos os campos são obrigatórios, exceto os marcados como opcionais.
+          </p>
+
           <fieldset>
             <legend>Dados pessoais</legend>
 
@@ -110,7 +118,7 @@ export function cadastroTemplate() {
               <div class="form-group">
                 <label for="estado">Estado</label>
 
-                <select id="estado" name="estado" aria-describedby="erro-estado" autocomplete="address-level1">
+                <select id="estado" name="estado" aria-describedby="erro-estado" autocomplete="address-level1" required>
                   <option value="">Selecione</option>
                   ${lista(estados, ([uf, nome]) => `<option value="${uf}">${nome}</option>`)}
                 </select>
@@ -170,7 +178,7 @@ export function cadastroTemplate() {
         </form>
 
         <section class="saved-section" aria-labelledby="titulo-cadastros">
-          <h2 id="titulo-cadastros">Cadastros salvos neste navegador</h2>
+          <h2 id="titulo-cadastros" tabindex="-1">Cadastros salvos neste navegador</h2>
 
           <div id="lista-cadastros"></div>
         </section>

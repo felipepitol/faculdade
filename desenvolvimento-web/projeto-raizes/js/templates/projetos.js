@@ -11,14 +11,14 @@ function detalheProjeto({ titulo, itens, texto }) {
 
 function projetoCompleto(projeto) {
   return `
-    <article class="project-card" id="${projeto.id}" tabindex="-1">
+    <article class="project-card" id="${projeto.id}" tabindex="-1" aria-labelledby="titulo-${projeto.id}">
       <div class="grid">
         <div class="col-6">
           <img src="${projeto.imagem}" alt="${projeto.altDetalhe}" width="800" height="500">
         </div>
 
         <div class="col-6">
-          <h2>${projeto.titulo}</h2>
+          <h2 id="titulo-${projeto.id}">${projeto.titulo}</h2>
 
           <p>${projeto.descricao}</p>
 

@@ -9,6 +9,7 @@ const PREFIXO = "raizes:";
 export const CHAVES = {
   rascunho: "rascunho",
   cadastros: "cadastros",
+  contraste: "contraste",
 };
 
 export function ler(chave, padrao = null) {
