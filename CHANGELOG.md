@@ -4,6 +4,11 @@ Todas as mudanças relevantes do repositório. O formato segue o
 [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e as versões seguem o
 [versionamento semântico](https://semver.org/lang/pt-BR/).
 
+## [1.0.1] — 2026-09-26
+
+### Corrigido
+- Link da página atual no menu indicado também por sublinhado, não só pela cor (WCAG 1.4.1)
+
 ## [1.0.0] — 2026-09-26
 
 Primeira versão estável do Projeto Raízes, publicada em <https://felipepitol.github.io/faculdade/>.
@@ -35,6 +40,7 @@ Primeira versão estável do Projeto Raízes, publicada em <https://felipepitol.
 ### Adicionado
 - Site estático: páginas inicial, projetos e cadastro, grid de 12 colunas e menu responsivo
 
+[1.0.1]: https://github.com/felipepitol/faculdade/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/felipepitol/faculdade/compare/v0.2.0...v1.0.0
 [0.2.0]: https://github.com/felipepitol/faculdade/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/felipepitol/faculdade/compare/v0.1.0...v0.1.1
