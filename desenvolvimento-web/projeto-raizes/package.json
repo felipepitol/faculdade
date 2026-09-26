@@ -4,6 +4,16 @@
   "type": "module",
   "scripts": {
     "start": "python3 -m http.server 8080",
-    "test": "node --test"
+    "test": "node --test",
+    "build": "node scripts/build.mjs",
+    "preview": "npm run build && python3 -m http.server 8081 --directory dist"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "html-minifier-terser": "^7.2.0",
+    "svgo": "^4.1.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
   }
 }
