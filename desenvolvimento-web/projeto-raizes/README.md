@@ -5,6 +5,12 @@ Desenvolvimento Front-end. Nesta etapa a interface estática virou uma _Single P
 em JavaScript puro: navegação sem recarregar a página, templates, validação de formulário
 com feedback e dados guardados no `localStorage`.
 
+## Requisitos
+
+- Navegador atual (Chrome, Firefox, Safari ou Edge)
+- Python 3 ou qualquer servidor estático, para rodar localmente
+- Node.js 18 ou superior, só para os testes
+
 ## Como rodar
 
 Módulos JavaScript (`type="module"`) não carregam direto de `file://`, então o projeto
@@ -78,3 +84,9 @@ Se o CDN não responder, a lista continua exibindo a data absoluta.
 | ------------------ | ------------------------------------------------------------------------- |
 | `raizes:rascunho`  | Campos preenchidos e ainda não enviados. O CPF fica de fora.              |
 | `raizes:cadastros` | Cadastros enviados. Do CPF só são guardados os três dígitos centrais.     |
+
+## Versões e contribuição
+
+O histórico de versões, o fluxo de branches (GitFlow) e o padrão de commits estão no
+[README da raiz do repositório](../../README.md). Em resumo: toda mudança nasce numa issue,
+é feita numa branch `feature/*` a partir da `develop` e entra por pull request.
