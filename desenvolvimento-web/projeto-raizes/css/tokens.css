@@ -41,9 +41,14 @@
 
   /* ---------- Cores: bordas e foco ---------- */
   --color-border: #dce3da;                 /* divisórias e contorno de cards */
-  --color-border-input: #aeb9ad;           /* contorno de campos em repouso */
-  --color-focus-ring: var(--color-secondary);    /* outline de foco via teclado */
-  --color-focus-glow: rgba(47, 107, 59, 0.2);    /* halo de campo em foco */
+  --color-border-input: #7a8579;           /* contorno de campos: 3.6:1 no fundo (WCAG 1.4.11) */
+
+  /*
+     Foco em duas cores: anel escuro + halo claro. Um dos dois sempre
+     tem 3:1 contra o fundo, seja claro (anel 11:1) ou verde (halo 6:1).
+  */
+  --color-focus-ring: #1b3d23;
+  --color-focus-halo: var(--white);
 
   /* ---------- Cores: feedback ---------- */
   --color-success: var(--color-primary);   /* campo válido, toast de sucesso */
@@ -93,4 +98,47 @@
   --container-width: 1200px;
   --transition: 0.2s ease;
   --shadow-overlay: 0 10px 30px rgba(0, 0, 0, 0.15); /* elementos flutuantes */
+}
+
+/* ========================================
+   MODO ALTO CONTRASTE
+   Ativado pelo botão do cabeçalho (data-contraste="alto" no <html>)
+   ou, sem escolha salva, pela preferência do sistema (prefers-contrast).
+   Só troca tokens semânticos: os componentes não mudam.
+======================================== */
+
+:root[data-contraste="alto"] {
+  --color-primary: #ffe14d;                /* amarelo sobre preto: 16:1 */
+  --color-primary-dark: var(--white);
+  --color-secondary: #ffe14d;
+
+  --color-background: #000000;
+  --color-surface: #000000;
+  --color-text: var(--white);              /* 21:1 */
+  --color-text-muted: #e6e6e6;             /* 16.8:1 */
+  --color-on-primary: #000000;
+
+  --color-border: var(--white);
+  --color-border-input: var(--white);
+  --color-focus-ring: #5ce1ff;             /* ciano: distinto do amarelo dos botões */
+  --color-focus-halo: #000000;
+
+  --color-success: #7dff9a;
+  --color-success-text: #7dff9a;
+  --color-success-bg: #000000;
+  --color-success-border: #7dff9a;
+
+  --color-error: #ff8a8a;
+  --color-error-text: #ff8a8a;             /* 9.2:1 */
+  --color-error-bg: #000000;
+  --color-error-border: #ff8a8a;
+
+  --color-warning-text: #ffe14d;
+  --color-warning-bg: #000000;
+
+  --color-info-text: var(--white);
+  --color-info-bg: #000000;
+  --color-info-border: var(--white);
+
+  --shadow-overlay: none;
 }
