@@ -65,7 +65,8 @@ Exemplos do histórico: `feat(js): transforma o Projeto Raízes em SPA com JavaS
 - **PATCH** — correção ou melhoria interna sem mudar o comportamento.
 
 Enquanto a versão é `0.x`, o projeto ainda está em evolução. Cada versão tem uma tag anotada e uma
-[release no GitHub](https://github.com/felipepitol/faculdade/releases) com as notas de alteração.
+[release no GitHub](https://github.com/felipepitol/faculdade/releases) com as notas de alteração, também
+registradas no [CHANGELOG](CHANGELOG.md).
 
 | Versão | Conteúdo |
 | ------ | -------- |
