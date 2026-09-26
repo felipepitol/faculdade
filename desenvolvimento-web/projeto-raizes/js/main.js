@@ -5,7 +5,13 @@
 
 import { iniciarListaCadastros } from "./modules/cadastros.js";
 import { iniciarFormulario } from "./modules/form.js";
-import { fecharMenus, marcarLinkAtivo, posicionarConteudo } from "./modules/nav.js";
+import {
+  fecharMenus,
+  iniciarSkipLink,
+  iniciarSubmenu,
+  marcarLinkAtivo,
+  posicionarConteudo,
+} from "./modules/nav.js";
 import { criarRoteador } from "./modules/router.js";
 import { cadastroTemplate } from "./templates/cadastro.js";
 import { homeTemplate } from "./templates/home.js";
@@ -41,6 +47,9 @@ const naoEncontrada = {
 };
 
 const saida = document.querySelector("#app");
+
+iniciarSkipLink(saida);
+iniciarSubmenu();
 
 criarRoteador({
   rotas,
