@@ -113,8 +113,19 @@
   color: var(--color-primary);
 }
 
-.site-nav a[aria-current="page"] {
+/*
+   Página atual: além da cor, um sublinhado grosso. A diferença de cor
+   para os outros links é de só 2.1:1, então sozinha não basta para
+   quem tem daltonismo ou baixa visão (WCAG 1.4.1).
+*/
+
+.site-nav a[aria-current="page"],
+.mobile-nav a[aria-current="page"] {
   color: var(--color-primary);
+
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 6px;
 }
 
 /* ========================================

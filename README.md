@@ -73,4 +73,5 @@ registradas no [CHANGELOG](CHANGELOG.md).
 | v0.1.0 | Site estático: páginas inicial, projetos e cadastro, grid de 12 colunas, menu responsivo |
 | v0.1.1 | Limpeza do CSS e design system em tokens semânticos |
 | v0.2.0 | SPA com JavaScript modular, validação, `localStorage` e testes |
+| v1.0.1 | Hotfix: link da página atual indicado também por sublinhado, não só pela cor |
 | v1.0.0 | GitFlow e documentação, acessibilidade WCAG 2.1 AA com alto contraste, build de produção e deploy ([milestone](https://github.com/felipepitol/faculdade/milestone/1)) |
