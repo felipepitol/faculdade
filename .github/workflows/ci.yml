@@ -1,0 +1,28 @@
+# Validação dos pull requests: testes e build precisam passar antes do merge.
+
+name: CI
+
+on:
+  pull_request:
+    branches: [develop, master]
+
+defaults:
+  run:
+    working-directory: desenvolvimento-web/projeto-raizes
+
+jobs:
+  testes-e-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: desenvolvimento-web/projeto-raizes/package-lock.json
+
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
