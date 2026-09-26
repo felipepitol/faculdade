@@ -76,6 +76,12 @@
    MENU DESKTOP
 ======================================== */
 
+/* Menu e botão de contraste ficam juntos à direita do logo */
+
+.site-nav {
+  margin-left: auto;
+}
+
 .site-nav > ul {
   display: flex;
   align-items: center;
@@ -790,6 +796,10 @@ address {
   .site-nav ul {
     justify-content: center;
   }
+
+  .site-nav {
+    margin-left: 0;
+  }
 }
 
 /* ========================================
@@ -815,6 +825,10 @@ address {
 
   .mobile-nav {
     display: block;
+  }
+
+  .contrast-toggle {
+    margin-left: auto;
   }
 
   .header-content {
@@ -866,6 +880,20 @@ address {
 ======================================== */
 
 @media (max-width: 576px) {
+  /* Só o ícone no botão de contraste; o texto continua para leitores de tela */
+
+  .contrast-toggle span {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    overflow: hidden;
+    clip-path: inset(50%);
+
+    white-space: nowrap;
+  }
+
   :root {
     --font-display: var(--font-size-xl);
 
@@ -922,11 +950,18 @@ address {
    ACESSIBILIDADE
 ======================================== */
 
+/*
+   Foco em duas cores (anel + halo): visível sobre fundo claro, verde
+   ou preto (alto contraste). O box-shadow preenche o espaço do offset.
+*/
+
 a:focus-visible,
 button:focus-visible,
 summary:focus-visible {
   outline: 3px solid var(--color-focus-ring);
-  outline-offset: 3px;
+  outline-offset: 2px;
+
+  box-shadow: 0 0 0 2px var(--color-focus-halo);
 }
 
 /* Esconde da tela, mas mantém para leitores de tela */
@@ -996,7 +1031,9 @@ summary:focus-visible {
 
 .button:focus-visible {
   outline: 3px solid var(--color-focus-ring);
-  outline-offset: 3px;
+  outline-offset: 2px;
+
+  box-shadow: 0 0 0 2px var(--color-focus-halo);
 }
 
 .button:active {
@@ -1020,7 +1057,8 @@ summary:focus-visible {
 input:focus,
 select:focus,
 textarea:focus {
-  outline: 3px solid var(--color-focus-glow);
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 1px;
   border-color: var(--color-primary);
 }
 
@@ -1299,6 +1337,88 @@ select[aria-invalid="true"] {
   color: var(--color-text);
 }
 
+
+/* ========================================
+   ALTO CONTRASTE
+======================================== */
+
+/* Botão do cabeçalho: aria-pressed diz se o modo está ligado */
+
+.contrast-toggle {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 0.4rem;
+
+  min-height: 44px;
+
+  padding: 0.4rem 0.75rem;
+
+  border: 2px solid var(--color-primary);
+  border-radius: 0.5rem;
+
+  background: none;
+  color: var(--color-primary);
+
+  font: inherit;
+  font-size: var(--font-small);
+  font-weight: var(--font-weight-semibold);
+
+  cursor: pointer;
+}
+
+.contrast-toggle svg {
+  width: 1.1rem;
+  height: 1.1rem;
+
+  fill: currentColor;
+}
+
+.contrast-toggle[aria-pressed="true"] {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+/* No alto contraste, links sempre sublinhados: não dependem só da cor (1.4.1) */
+
+[data-contraste="alto"] a:not(.button, .skip-link, .site-logo) {
+  text-decoration: underline;
+}
+
+/* As ilustrações SVG têm cores próprias: um contorno as separa do fundo preto */
+
+[data-contraste="alto"] img {
+  outline: 2px solid var(--color-border);
+}
+
+[data-contraste="alto"] .card,
+[data-contraste="alto"] .project-card,
+[data-contraste="alto"] .highlight {
+  border: 2px solid var(--color-border);
+}
+
+/*
+   Modo de cores forçadas do sistema (ex.: Alto Contraste do Windows):
+   o navegador troca as cores, então só garantimos bordas e foco visíveis.
+*/
+
+@media (forced-colors: active) {
+  .button,
+  .badge,
+  .toast,
+  .alert,
+  .card,
+  .submenu {
+    border: 1px solid CanvasText;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  summary:focus-visible,
+  .button:focus-visible {
+    outline-color: Highlight;
+  }
+}
 
 /* ========================================
    SPA

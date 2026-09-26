@@ -4,6 +4,7 @@
 */
 
 import { iniciarListaCadastros } from "./modules/cadastros.js";
+import { iniciarContraste } from "./modules/contraste.js";
 import { iniciarFormulario } from "./modules/form.js";
 import {
   fecharMenus,
@@ -48,6 +49,7 @@ const naoEncontrada = {
 
 const saida = document.querySelector("#app");
 
+iniciarContraste();
 iniciarSkipLink(saida);
 iniciarSubmenu();
 

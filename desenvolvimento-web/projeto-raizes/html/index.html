@@ -10,6 +10,23 @@
 
     <title>Projeto Raízes</title>
 
+    <!--
+        Aplica o alto contraste antes de pintar a página, para não piscar
+        no tema padrão. Usa a escolha salva ou, sem ela, a do sistema.
+    -->
+    <script>
+        try {
+            const salvo = JSON.parse(localStorage.getItem("raizes:contraste"));
+            const sistema = matchMedia("(prefers-contrast: more)").matches;
+
+            if (salvo === "alto" || (salvo === null && sistema)) {
+                document.documentElement.dataset.contraste = "alto";
+            }
+        } catch {
+            /* sem localStorage: segue o tema padrão */
+        }
+    </script>
+
     <link rel="stylesheet" href="../css/tokens.css">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/style.css">
@@ -83,6 +100,17 @@
                 </ul>
             </nav>
 
+
+            <!-- Liga e desliga o modo alto contraste (js/modules/contraste.js) -->
+            <button type="button" class="contrast-toggle" aria-pressed="false">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" aria-hidden="true" focusable="false">
+                    <path
+                        d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192V40a88,88,0,0,1,0,176Z">
+                    </path>
+                </svg>
+
+                <span>Alto contraste</span>
+            </button>
 
             <!-- Navegação mobile -->
             <details class="mobile-nav">
