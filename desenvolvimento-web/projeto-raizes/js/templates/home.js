@@ -3,18 +3,19 @@ import { lista } from "../modules/html.js";
 
 function cardProjeto(projeto) {
   return `
-    <article class="card col-4">
+    <article class="card col-4" aria-labelledby="card-${projeto.id}">
       <img src="${projeto.imagem}" alt="${projeto.altCard}" width="800" height="500">
 
       <div class="card-content">
         ${projeto.badge ? `<span class="badge badge-active">${projeto.badge}</span>` : ""}
 
-        <h3>${projeto.titulo}</h3>
+        <h3 id="card-${projeto.id}">${projeto.titulo}</h3>
 
         <p>${projeto.resumo}</p>
 
         <a href="#/projetos/${projeto.id}" class="button button-secondary">
           Conhecer projeto
+          <span class="visually-hidden">${projeto.titulo}</span>
         </a>
       </div>
     </article>

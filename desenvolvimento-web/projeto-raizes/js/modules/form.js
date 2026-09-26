@@ -61,18 +61,51 @@ function atualizarContador(form) {
   contador.textContent = `${usados} de ${LIMITE_MENSAGEM} caracteres`;
 }
 
+/* Nome do campo como a pessoa vê na tela: o <label> ou a <legend> do grupo */
+function rotuloDoCampo(form, nome) {
+  const [controle] = controlesDoCampo(form, nome);
+  const rotulo =
+    controle?.type === "radio"
+      ? controle.closest("fieldset")?.querySelector("legend")
+      : form.querySelector(`label[for="${nome}"]`);
+
+  return rotulo?.firstChild?.textContent.trim() ?? nome;
+}
+
+/*
+   Resumo de erros no topo: diz quantos e quais campos corrigir.
+   Cada item é um botão que leva o foco ao campo (os links com #id
+   mudariam o hash, que é usado pelo roteador).
+*/
 function mostrarResumo(raiz, erros) {
   const resumo = raiz.querySelector("#resumo-erros");
-  const total = Object.keys(erros).length;
+  const form = raiz.querySelector("#form-cadastro");
+  const nomes = Object.keys(erros);
 
-  resumo.hidden = total === 0;
+  resumo.hidden = nomes.length === 0;
 
-  if (total === 0) return;
+  if (nomes.length === 0) return;
 
-  resumo.textContent =
-    total === 1
-      ? "Há 1 campo para corrigir antes de enviar."
-      : `Há ${total} campos para corrigir antes de enviar.`;
+  resumo.querySelector("#resumo-erros-titulo").textContent =
+    nomes.length === 1
+      ? "Há 1 campo para corrigir antes de enviar:"
+      : `Há ${nomes.length} campos para corrigir antes de enviar:`;
+
+  const itens = nomes.map((nome) => {
+    const item = document.createElement("li");
+    const botao = document.createElement("button");
+
+    botao.type = "button";
+    botao.className = "link-button";
+    botao.dataset.focar = nome;
+    botao.textContent = `${rotuloDoCampo(form, nome)} — ${erros[nome]}`;
+
+    item.append(botao);
+
+    return item;
+  });
+
+  resumo.querySelector(".error-summary-list").replaceChildren(...itens);
 }
 
 function restaurarRascunho(raiz, form) {
@@ -196,6 +229,12 @@ export function iniciarFormulario(raiz, { aoEnviar } = {}) {
             tipo: "error",
           },
     );
+  });
+
+  raiz.querySelector("#resumo-erros").addEventListener("click", ({ target }) => {
+    const nome = target.closest("[data-focar]")?.dataset.focar;
+
+    if (nome) controlesDoCampo(form, nome)[0]?.focus();
   });
 
   raiz.querySelector("#descartar-rascunho").addEventListener("click", () => {
