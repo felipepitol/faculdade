@@ -1,26 +1,72 @@
 # Projeto Raízes
 
 Site de uma organização fictícia de hortas comunitárias, desenvolvido na disciplina de
-Desenvolvimento Front-end. Nesta etapa a interface estática virou uma _Single Page Application_
-em JavaScript puro: navegação sem recarregar a página, templates, validação de formulário
-com feedback e dados guardados no `localStorage`.
+Desenvolvimento Front-end. Apresenta a organização e seus projetos e recebe inscrições de
+voluntários. É uma _Single Page Application_ em JavaScript puro, sem framework: a navegação
+não recarrega a página e o conteúdo é gerado a partir de dados.
 
-## Requisitos
+## Funcionalidades
 
-- Navegador atual (Chrome, Firefox, Safari ou Edge)
-- Python 3 ou qualquer servidor estático, para rodar localmente
-- Node.js 18 ou superior, só para os testes
+- Três telas — início, projetos e cadastro — com roteamento por hash e página de "não encontrada"
+- Layout responsivo com grid de 12 colunas e menu recolhível no celular
+- Formulário de participação com máscaras (CPF, telefone, CEP), validação campo a campo e
+  mensagens de erro acessíveis
+- Rascunho salvo automaticamente e lista dos cadastros enviados, ambos no `localStorage`
+- Tempo relativo nos cadastros ("há 5 minutos") com a biblioteca Day.js
 
-## Como rodar
+## Tecnologias
 
-Módulos JavaScript (`type="module"`) não carregam direto de `file://`, então o projeto
-precisa de um servidor local. Qualquer um serve:
+| Tecnologia | Onde é usada |
+| ---------- | ------------ |
+| HTML5 semântico | `html/index.html`: casca da SPA com `header`, `nav`, `main` e `footer` |
+| CSS3 (custom properties, Grid, Flexbox, media queries) | `css/`: design system em tokens, reset e componentes |
+| JavaScript ES2022 com ES modules | `js/`: roteador, templates, validação e persistência, sem framework |
+| Web Storage (`localStorage`) | `js/modules/storage.js` e `cadastros.js` |
+| [Day.js](https://day.js.org) 1.11 via jsDelivr | `js/modules/datas.js`, carregado sob demanda |
+| Node.js test runner (`node --test`) | `tests/`: testes das funções puras |
+| Git + GitHub (GitFlow, Conventional Commits, SemVer) | Versionamento — ver o [README da raiz](../../README.md) |
 
-```bash
-npm start            # python3 -m http.server 8080
-```
+## Pré-requisitos
 
-Depois acesse <http://localhost:8080>. A extensão Live Server do VS Code também funciona.
+| Ferramenta | Versão | Para quê |
+| ---------- | ------ | -------- |
+| Git | qualquer recente | Clonar o repositório |
+| Node.js + npm | 18 ou superior | Rodar os scripts e os testes |
+| Python 3 | 3.8 ou superior | Servidor local usado pelo `npm start` |
+| Navegador | Chrome, Firefox, Safari ou Edge atuais | Usar o site |
+
+Confira com `git --version`, `node --version` e `python3 --version`.
+
+## Instalação e execução local
+
+1. Clone o repositório e entre na pasta do projeto:
+
+   ```bash
+   git clone https://github.com/felipepitol/faculdade.git
+   cd faculdade/desenvolvimento-web/projeto-raizes
+   ```
+
+2. Instale as dependências. O projeto não tem dependências de runtime (o Day.js vem do CDN),
+   então o comando só valida o `package.json`; ele passa a instalar as ferramentas de build
+   quando elas forem adicionadas:
+
+   ```bash
+   npm install
+   ```
+
+3. Suba o servidor local:
+
+   ```bash
+   npm start            # python3 -m http.server 8080
+   ```
+
+   Módulos JavaScript (`type="module"`) não carregam direto de `file://`, por isso o servidor é
+   obrigatório. A extensão Live Server do VS Code ou `npx serve` também funcionam.
+
+4. Acesse <http://localhost:8080>. A raiz redireciona para `html/index.html`.
+
+Para trabalhar numa mudança, crie a branch a partir da `develop` (`git checkout develop &&
+git checkout -b feature/<nome>`), seguindo o fluxo descrito no README da raiz.
 
 ## Testes
 
@@ -29,7 +75,13 @@ npm test             # node --test
 ```
 
 Cobrem as regras de validação, as máscaras e a leitura das rotas — tudo o que é função pura,
-sem depender do navegador.
+sem depender do navegador. Saída esperada:
+
+```
+ℹ tests 10
+ℹ pass 10
+ℹ fail 0
+```
 
 ## Estrutura
 
