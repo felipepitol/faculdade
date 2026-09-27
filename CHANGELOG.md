@@ -4,7 +4,7 @@ Todas as mudanças relevantes do repositório. O formato segue o
 [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e as versões seguem o
 [versionamento semântico](https://semver.org/lang/pt-BR/).
 
-## [1.0.2] — 2026-09-27
+## [1.0.2] — 2026-09-26
 
 ### Documentação
 - Números do build no README atualizados após o hotfix v1.0.1 (CSS 28.6 KB → 17.3 KB; total 80.2 KB → 46.6 KB, 14.3 KB com gzip) ([#16](https://github.com/felipepitol/faculdade/pull/16))
