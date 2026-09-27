@@ -103,15 +103,15 @@ O script [`scripts/build.mjs`](scripts/build.mjs) gera `dist/` com a mesma estru
 | HTML | html-minifier-terser | Remove comentários e espaços e aponta os links para os arquivos gerados |
 | Imagens | SVGO | Otimiza os SVGs (metadados, espaços, precisão numérica) |
 
-Resultado do build atual:
+Resultado do build na v1.0.2 (o `npm run build` imprime esta tabela atualizada a cada execução):
 
 | Arquivo | Fonte | Minificado | Gzip |
 | ------- | ----: | ---------: | ---: |
-| CSS (3 arquivos → 1) | 28.3 KB | 17.2 KB | 3.7 KB |
+| CSS (3 arquivos → 1) | 28.6 KB | 17.3 KB | 3.7 KB |
 | JS (18 módulos → 1) | 41.5 KB | 24.1 KB | 7.8 KB |
 | HTML | 7.8 KB | 3.3 KB | 1.4 KB |
 | Imagens SVG | 2.3 KB | 1.9 KB | 1.3 KB |
-| **Total** | **79.8 KB** | **46.5 KB** | **14.2 KB** |
+| **Total** | **80.2 KB** | **46.6 KB** | **14.3 KB** |
 
 Além de reduzir 82% do peso transferido (com gzip), o bundle troca 21 requisições de CSS e JS por 2.
 
