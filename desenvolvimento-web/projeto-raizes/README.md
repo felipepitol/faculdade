@@ -87,7 +87,7 @@ sem depender do navegador. Saída esperada:
 ## Build de produção
 
 ```bash
-npm install          # instala esbuild, html-minifier-terser e svgo
+npm install          # instala esbuild, html-minifier-terser, svgo e sharp
 npm run build        # gera a pasta dist/
 npm run preview      # build + servidor em http://localhost:8081 servindo dist/
 ```
@@ -101,19 +101,56 @@ O script [`scripts/build.mjs`](scripts/build.mjs) gera `dist/` com a mesma estru
 | JS | esbuild | Empacota `main.js` e os módulos num bundle ES minificado; o Day.js continua vindo do CDN, sob demanda |
 | Cache | esbuild | Nomes com hash do conteúdo (`app-PS5ARUD4.css`): o arquivo pode ficar em cache por muito tempo, e um deploy novo sempre gera outro nome |
 | HTML | html-minifier-terser | Remove comentários e espaços e aponta os links para os arquivos gerados |
-| Imagens | SVGO | Otimiza os SVGs (metadados, espaços, precisão numérica) |
+| Imagens | — | Copia as fotos já otimizadas (ver [Imagens](#imagens)); SVGs, se houver, passam pelo SVGO |
 
-Resultado do build na v1.0.2 (o `npm run build` imprime esta tabela atualizada a cada execução):
+Resultado do build na v1.1.0 (o `npm run build` imprime esta tabela atualizada a cada execução):
 
 | Arquivo | Fonte | Minificado | Gzip |
 | ------- | ----: | ---------: | ---: |
 | CSS (3 arquivos → 1) | 28.6 KB | 17.3 KB | 3.7 KB |
-| JS (18 módulos → 1) | 41.5 KB | 24.1 KB | 7.8 KB |
+| JS (20 módulos → 1) | 44.6 KB | 25.3 KB | 8.5 KB |
 | HTML | 7.8 KB | 3.3 KB | 1.4 KB |
-| Imagens SVG | 2.3 KB | 1.9 KB | 1.3 KB |
-| **Total** | **80.2 KB** | **46.6 KB** | **14.3 KB** |
+| **Total** | **81.0 KB** | **46.0 KB** | **13.6 KB** |
 
-Além de reduzir 82% do peso transferido (com gzip), o bundle troca 21 requisições de CSS e JS por 2.
+Além de reduzir 83% do peso transferido (com gzip), o bundle troca 23 requisições de CSS e JS por 2.
+
+## Imagens
+
+As fotos originais (PNG 1536×1024, ~2,7 MB cada) ficam em `imagens/originais/`, **fora do Git**.
+O script [`scripts/imagens.mjs`](scripts/imagens.mjs) gera as versões que vão para o site:
+
+```bash
+npm run imagens      # só é preciso quando uma foto muda
+```
+
+- **Recorte** em 16:10, a proporção em que as fotos aparecem
+- **Formatos:** AVIF (o mais leve, ~50% menor que JPEG), WebP (quase universal) e JPEG (reserva para
+  navegadores antigos). O `<picture>` oferece na ordem e o navegador usa o primeiro que suporta
+- **Larguras:** 480, 800, 1200 e 1536 px (a do original: não há ampliação)
+- **Resolução por contexto:** o `sizes` diz quanto cada foto ocupa na tela, e o navegador escolhe no
+  `srcset` a menor largura nítida para aquela tela e densidade de pixels. Os valores ficam em
+  [`js/data/imagens.js`](js/data/imagens.js), junto com os breakpoints do CSS:
+
+| Contexto | `sizes` | Exemplo baixado |
+| -------- | ------- | --------------- |
+| Destaque da home | `(max-width: 992px) 100vw, 600px` | Desktop: 800 px (51 KB) |
+| Card de projeto | `(max-width: 768px) 100vw, (max-width: 992px) 50vw, 384px` | Desktop: 480 px (~20 KB) |
+| Página do projeto | `(max-width: 992px) 100vw, 560px` | Desktop: 800 px (~45 KB) |
+
+- **Carregamento:** `fetchpriority="high"` no destaque (é o LCP da home); `loading="lazy"` e
+  `decoding="async"` nas demais. Todas têm `width` e `height`, reservando o espaço antes do download
+- **`alt`** descreve o que cada foto mostra, em versão curta no card e detalhada na página do projeto
+
+Medição com Lighthouse 12 (servidor local, sem gzip), comparando com as mesmas fotos em PNG sem otimização:
+
+| Métrica | PNG original | Otimizado |
+| ------- | -----------: | --------: |
+| Nota de desempenho (mobile) | 75 | 100 |
+| LCP (mobile, 4G lento simulado) | 36,5 s | 1,8 s |
+| Nota de desempenho (desktop) | 74 | 100 |
+| LCP (desktop) | 6,1 s | 0,4 s |
+| Peso total da home | 10,8 MB | 233 KB (mobile) / 161 KB (desktop) |
+| CLS | 0,003 | 0 |
 
 ## Deploy
 
@@ -157,11 +194,12 @@ projeto-raizes/
 │   ├── tokens.css          design system: cores, tipografia e espaçamentos
 │   ├── reset.css           normalização dos estilos do navegador
 │   └── style.css           layout, componentes e responsividade
-├── imagens/                ilustrações em SVG usadas no hero e nos projetos
+├── imagens/                fotos em AVIF, WebP e JPEG, em 4 larguras (geradas)
+│   └── originais/          PNGs de origem, fora do Git
 ├── js/
 │   ├── main.js             ponto de entrada: tabela de rotas e inicialização
-│   ├── data/               conteúdo em forma de dados (projetos, opções do formulário)
-│   ├── templates/          funções que devolvem o HTML de cada view
+│   ├── data/               conteúdo em forma de dados (projetos, formulário, tamanhos das fotos)
+│   ├── templates/          funções que devolvem o HTML de cada view (e o <picture> das fotos)
 │   └── modules/            lógica, um arquivo por responsabilidade
 │       ├── router.js       roteador por hash (#/rota/parametro)
 │       ├── nav.js          link ativo, fechamento de menus, foco e rolagem
@@ -175,7 +213,8 @@ projeto-raizes/
 │       ├── datas.js        integração com o Day.js (tempo relativo)
 │       └── html.js         escape de HTML e utilitário de listas
 ├── scripts/
-│   └── build.mjs           build de produção (gera dist/, fora do Git)
+│   ├── build.mjs           build de produção (gera dist/, fora do Git)
+│   └── imagens.mjs         gera as fotos otimizadas a partir dos originais
 └── tests/                  testes com o runner nativo do Node
 ```
 
