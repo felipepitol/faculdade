@@ -1,5 +1,6 @@
 import { projetos } from "../data/projetos.js";
 import { lista } from "../modules/html.js";
+import { imagemResponsiva } from "./imagem.js";
 
 function detalheProjeto({ titulo, itens, texto }) {
   const conteudo = itens
@@ -14,7 +15,7 @@ function projetoCompleto(projeto) {
     <article class="project-card" id="${projeto.id}" tabindex="-1" aria-labelledby="titulo-${projeto.id}">
       <div class="grid">
         <div class="col-6">
-          <img src="${projeto.imagem}" alt="${projeto.altDetalhe}" width="800" height="500">
+          ${imagemResponsiva({ nome: projeto.imagem, alt: projeto.altDetalhe, contexto: "projeto" })}
         </div>
 
         <div class="col-6">

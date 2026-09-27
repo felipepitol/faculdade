@@ -10,7 +10,8 @@
    - Nomes com hash do conteúdo (app-3f2a1c.css), para cache longo sem
      servir versão velha depois de um deploy
    - HTML minificado, com os links apontando para os arquivos gerados
-   - SVGs otimizados com SVGO
+   - SVGs otimizados com SVGO; fotos (AVIF/WebP/JPEG) copiadas, já
+     otimizadas por scripts/imagens.mjs
 
    Uso: npm run build
 */
@@ -148,25 +149,43 @@ async function main() {
     gzipSync(htmlMin).length,
   );
 
-  /* Imagens: SVGO remove metadados, espaços e casas decimais sobrando */
+  /*
+     Imagens: SVGs passam pelo SVGO; as fotos (AVIF/WebP/JPEG) já saem
+     otimizadas do npm run imagens e só são copiadas. A pasta originais/
+     fica de fora do build.
+  */
   await mkdir(join(DIST, "imagens"), { recursive: true });
 
   let imgAntes = 0;
   let imgDepois = 0;
   let imgGzip = 0;
+  let fotos = 0;
+  let fotosBytes = 0;
 
   for (const nome of await readdir(join(RAIZ, "imagens"))) {
-    const original = await readFile(join(RAIZ, "imagens", nome), "utf8");
-    const { data } = optimize(original, { multipass: true });
+    const origem = join(RAIZ, "imagens", nome);
 
-    await writeFile(join(DIST, "imagens", nome), data);
+    /* Ignora a pasta originais/ e arquivos do sistema (.DS_Store) */
+    if (nome.startsWith(".") || (await stat(origem)).isDirectory()) continue;
 
-    imgAntes += Buffer.byteLength(original);
-    imgDepois += Buffer.byteLength(data);
-    imgGzip += gzipSync(data).length;
+    if (nome.endsWith(".svg")) {
+      const original = await readFile(origem, "utf8");
+      const { data } = optimize(original, { multipass: true });
+
+      await writeFile(join(DIST, "imagens", nome), data);
+
+      imgAntes += Buffer.byteLength(original);
+      imgDepois += Buffer.byteLength(data);
+      imgGzip += gzipSync(data).length;
+    } else {
+      await cp(origem, join(DIST, "imagens", nome));
+
+      fotos += 1;
+      fotosBytes += await tamanho(origem);
+    }
   }
 
-  registrar("Imagens SVG", imgAntes, imgDepois, imgGzip);
+  if (imgAntes > 0) registrar("Imagens SVG", imgAntes, imgDepois, imgGzip);
 
   /* Relatório */
   const kb = (b) => `${(b / 1024).toFixed(1)} KB`;
@@ -190,8 +209,15 @@ async function main() {
   );
   console.log(
     `\nRedução: ${(100 - (totalDepois / totalAntes) * 100).toFixed(0)}% minificado,`,
-    `${(100 - (totalGzip / totalAntes) * 100).toFixed(0)}% com gzip.\n`,
+    `${(100 - (totalGzip / totalAntes) * 100).toFixed(0)}% com gzip.`,
   );
+
+  if (fotos > 0) {
+    console.log(
+      `Fotos: ${fotos} arquivos já otimizados (${kb(fotosBytes)} no total, gerados por npm run imagens);`,
+      "cada visita baixa só um formato e uma largura de cada foto.\n",
+    );
+  }
 }
 
 main().catch((erro) => {
