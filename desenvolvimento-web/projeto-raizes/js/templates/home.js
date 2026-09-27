@@ -1,10 +1,11 @@
 import { projetos } from "../data/projetos.js";
 import { lista } from "../modules/html.js";
+import { imagemResponsiva } from "./imagem.js";
 
 function cardProjeto(projeto) {
   return `
     <article class="card col-4" aria-labelledby="card-${projeto.id}">
-      <img src="${projeto.imagem}" alt="${projeto.altCard}" width="800" height="500">
+      ${imagemResponsiva({ nome: projeto.imagem, alt: projeto.altCard, contexto: "card" })}
 
       <div class="card-content">
         ${projeto.badge ? `<span class="badge badge-active">${projeto.badge}</span>` : ""}
@@ -38,12 +39,12 @@ export function homeTemplate() {
         </div>
 
         <div class="hero-image">
-          <img
-            src="../imagens/hero-horta-comunitaria.svg"
-            alt="Voluntários trabalhando juntos em uma horta comunitária"
-            width="800"
-            height="500"
-          >
+          ${imagemResponsiva({
+            nome: "hero-horta-comunitaria",
+            alt: "Cinco voluntários cuidam juntos de canteiros de madeira numa horta entre prédios, ao entardecer: uma mulher rega, outra planta mudas, dois homens carregam um caixote de terra e uma mulher sorri",
+            contexto: "hero",
+            prioritaria: true,
+          })}
         </div>
       </div>
     </section>

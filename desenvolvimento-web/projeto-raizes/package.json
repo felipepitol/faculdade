@@ -6,15 +6,17 @@
     "start": "python3 -m http.server 8080",
     "test": "node --test",
     "build": "node scripts/build.mjs",
-    "preview": "npm run build && python3 -m http.server 8081 --directory dist"
+    "preview": "npm run build && python3 -m http.server 8081 --directory dist",
+    "imagens": "node scripts/imagens.mjs"
   },
   "devDependencies": {
     "esbuild": "^0.28.2",
     "html-minifier-terser": "^7.2.0",
+    "sharp": "^0.35.4",
     "svgo": "^4.1.0"
   },
   "allowScripts": {
     "esbuild@0.28.2": true
   },
-  "version": "1.0.2"
+  "version": "1.1.0"
 }
