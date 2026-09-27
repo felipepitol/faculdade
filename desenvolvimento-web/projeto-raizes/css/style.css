@@ -1435,6 +1435,17 @@ select[aria-invalid="true"] {
    SPA
 ======================================== */
 
+/*
+   O conteúdo de cada view é montado pelo JavaScript. Reservar a altura da
+   tela evita que o rodapé apareça logo abaixo do "Carregando…" e seja
+   empurrado depois, o que o Lighthouse mede como deslocamento (CLS).
+*/
+
+#app {
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
 /* O foco vai para o conteúdo a cada troca de view; não precisa de contorno */
 
 #app:focus,
