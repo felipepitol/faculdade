@@ -1,2 +1,4 @@
 node_modules/
 dist/
+# Fotos originais (~2,7 MB cada): só as versões otimizadas vão para o Git
+imagens/originais/
