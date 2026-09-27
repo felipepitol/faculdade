@@ -4,6 +4,19 @@ Todas as mudanças relevantes do repositório. O formato segue o
 [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e as versões seguem o
 [versionamento semântico](https://semver.org/lang/pt-BR/).
 
+## [1.1.0] — 2026-09-26
+
+### Adicionado
+- Fotos reais no lugar dos placeholders, em AVIF, WebP e JPEG, com 4 larguras e `<picture>` responsivo
+  (`srcset`/`sizes` por contexto, `fetchpriority` no hero, `loading="lazy"` no resto) ([#19](https://github.com/felipepitol/faculdade/pull/19))
+- Script `npm run imagens` (sharp) para gerar as versões otimizadas; originais fora do Git
+
+### Corrigido
+- Deslocamento de layout ao montar a view (CLS 0,169 → 0) ([#19](https://github.com/felipepitol/faculdade/pull/19))
+
+### Desempenho
+- Lighthouse mobile 75 → 100, LCP 36,5 s → 1,8 s, peso da home 10,8 MB → 233 KB (comparado às fotos em PNG)
+
 ## [1.0.2] — 2026-09-26
 
 ### Documentação
@@ -45,6 +58,7 @@ Primeira versão estável do Projeto Raízes, publicada em <https://felipepitol.
 ### Adicionado
 - Site estático: páginas inicial, projetos e cadastro, grid de 12 colunas e menu responsivo
 
+[1.1.0]: https://github.com/felipepitol/faculdade/compare/v1.0.2...v1.1.0
 [1.0.2]: https://github.com/felipepitol/faculdade/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/felipepitol/faculdade/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/felipepitol/faculdade/compare/v0.2.0...v1.0.0
